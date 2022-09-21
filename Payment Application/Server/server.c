@@ -128,7 +128,7 @@ EN_transState_t recieveTransactionData(ST_transaction_t* transData)
 		return INTERNAL_SERVER_ERROR;
 	}
 	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
-	printf("Transaction is Approved.\n");
+	printf("\nTransaction is Approved.\n\n");
 	SetConsoleTextAttribute(hConsole, saved_attributes);
 	printf("Your new balance is %d\n", (uint32_t)(accountsDatabase[foundPANIndex].balance));
 	return APPROVED;
