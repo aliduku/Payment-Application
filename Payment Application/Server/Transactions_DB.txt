@@ -1,0 +1,36 @@
+
+Transaction Sequence Number: 1
+* Card Holder Name: Ali Essam Ali Abdelmohse
+* Primary Account Number: 6011997863792710
+* Card Expiration Date: 12/22
+* Transaction Amount: 100
+* Max Transaction Amount: 200
+* Transaction Date: 21/09/2022
+* Transaction State: Declined because this is a stolen/invalid card (PAN is not in our Database).
+
+Transaction Sequence Number: 2
+* Card Holder Name: Ahmad Mohsen MOhsensda
+* Primary Account Number: 6011997863792710
+* Card Expiration Date: 12/33
+* Transaction Amount: 56
+* Max Transaction Amount: 75
+* Transaction Date: 21/09/2022
+* Transaction State: Declined because this is a stolen/invalid card (PAN is not in our Database).
+
+Transaction Sequence Number: 3
+* Card Holder Name: Ali mohamed hassan ahlan
+* Primary Account Number: 670689740655549920
+* Card Expiration Date: 12/33
+* Transaction Amount: 45
+* Max Transaction Amount: 232
+* Transaction Date: 21/09/2022
+* Transaction State: Declined because this is a stolen/invalid card (PAN is not in our Database).
+
+Transaction Sequence Number: 4
+* Card Holder Name: ola islam oliver samak
+* Primary Account Number: 67066553602132068
+* Card Expiration Date: 12/33
+* Transaction Amount: 5000
+* Max Transaction Amount: 54456
+* Transaction Date: 21/09/2022
+* Transaction State: Declined due to insuffecient funds

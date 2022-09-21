@@ -16,13 +16,12 @@ EN_cardError_t getCardHolderName(ST_cardData_t* cardData)
 	uint32_t i = 0;
 	while ((enteredName[i] != '\0') && (isalpha(enteredName[i]) || (isblank(enteredName[i]))))
 		i++;
-	if ((enteredName[0] == '\0') || (enteredName[19] == '\0') || (enteredName[i] != '\0'))
+	if ((enteredName[0] == '\0') || (enteredName[19] == '\0') || (enteredName[24] != '\0') || (enteredName[i] != '\0'))
 	{
 		printf("Name format incorrect, please try again.\n");
 		return WRONG_NAME;
 	}
-	strcpy_s(cardData->cardHolderName, MAX_CARD_HOLDER_NAME, enteredName);
-	printf("Entered Name: %s\n", cardData->cardHolderName);
+	strcpy_s(cardData->cardHolderName, MAX_CARD_HOLDER_NAME - 1, enteredName);
 	return CARD_OK;
 }
 
@@ -47,7 +46,6 @@ EN_cardError_t getCardExpiryDate(ST_cardData_t* cardData)
 		return WRONG_EXP_DATE;
 	}
 	strcpy_s(cardData->cardExpirationDate, MAX_DATE_SIZE, enteredExpirationDate);
-	printf("Entered Expiration Date: %s\n", cardData->cardExpirationDate);
 	return CARD_OK;
 }
 
@@ -63,12 +61,11 @@ getCardPAN(ST_cardData_t* cardData)
 	fgets(enteredPAN, MAX_PAN_SIZE, stdin);
 	fseek(stdin, 0, SEEK_END);
 	enteredPAN[strcspn(enteredPAN, "\n")] = '\0';
-	if ((enteredPAN[0] == '\0') || (enteredPAN[15] == '\0'))
+	if ((enteredPAN[0] == '\0') || (enteredPAN[19] != '\0') || (enteredPAN[15] == '\0'))
 	{
 		printf("PAN format incorrect, please try again.\n");
 		return WRONG_PAN;
 	}
-	strcpy_s(cardData->primaryAccountNumber, MAX_PAN_SIZE, enteredPAN);
-	printf("Entered PAN: %s\n", cardData->primaryAccountNumber);
+	strcpy_s(cardData->primaryAccountNumber, MAX_PAN_SIZE - 1, enteredPAN);
 	return CARD_OK;
 }

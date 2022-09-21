@@ -70,23 +70,34 @@ It will update the database with the new balance.
 */
 EN_transState_t recieveTransactionData(ST_transaction_t* transData)
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
+	SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+
 	if (transData->transState == DECLINED_INVALID_CARD)
 	{
-		printf("Declined because Luhn check failed.\n");
+		printf("\nDeclined because Luhn check failed.\n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if (saveTransaction(transData) == SAVING_FAILED)
 			return INTERNAL_SERVER_ERROR;
 		return DECLINED_INVALID_CARD;
 	}
 	if (transData->transState == DECLINED_EXPIRED_CARD)
 	{
-		printf("Declined due to expired card.\n");
+		printf("\nDeclined due to expired card.\n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if (saveTransaction(transData) == SAVING_FAILED)
 			return INTERNAL_SERVER_ERROR;
 		return DECLINED_EXPIRED_CARD;
 	}
 	if (transData->transState == DECLINED_EXCEED_MAX_AMOUNT)
 	{
-		printf("Declined because maximum amount is exceeded.\n");
+		printf("\nDeclined because maximum amount is exceeded.\n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if (saveTransaction(transData) == SAVING_FAILED)
 			return INTERNAL_SERVER_ERROR;
 		return DECLINED_EXCEED_MAX_AMOUNT;
@@ -94,7 +105,8 @@ EN_transState_t recieveTransactionData(ST_transaction_t* transData)
 	if (isValidAccount(&(transData->cardHolderData)) == ACCOUNT_NOT_FOUND) 
 	{
 		transData->transState = DECLINED_STOLEN_CARD;
-		printf("Declined because this is a stolen/invalid card (PAN is not in our Database).\n");
+		printf("\nDeclined because this is a stolen/invalid card (PAN is not in our Database).\n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if (saveTransaction(transData) == SAVING_FAILED) 
 			return INTERNAL_SERVER_ERROR;
 		return DECLINED_STOLEN_CARD;
@@ -102,7 +114,8 @@ EN_transState_t recieveTransactionData(ST_transaction_t* transData)
 	if (isAmountAvailable(&(transData->terminalData)) == LOW_BALANCE) 
 	{
 		transData->transState = DECLINED_INSUFFECIENT_FUND;
-		printf("Declined due to insuffecient funds.\n");
+		printf("\nDeclined due to insuffecient funds.\n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if (saveTransaction(transData) == SAVING_FAILED)
 			return INTERNAL_SERVER_ERROR;
 		return DECLINED_INSUFFECIENT_FUND;
@@ -114,7 +127,9 @@ EN_transState_t recieveTransactionData(ST_transaction_t* transData)
 		printf("Server Error!\n");
 		return INTERNAL_SERVER_ERROR;
 	}
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
 	printf("Transaction is Approved.\n");
+	SetConsoleTextAttribute(hConsole, saved_attributes);
 	printf("Your new balance is %d\n", (uint32_t)(accountsDatabase[foundPANIndex].balance));
 	return APPROVED;
 }
@@ -138,7 +153,6 @@ EN_serverError_t isValidAccount(ST_cardData_t* cardData)
 			return SERVER_OK;
 		}
 	}
-	printf("PAN Not Found!\n");
 	return ACCOUNT_NOT_FOUND;
 }
 
@@ -151,7 +165,6 @@ EN_serverError_t isAmountAvailable(ST_terminalData_t* termData)
 {
 	if (accountsDatabase[foundPANIndex].balance < termData->transAmount)
 	{
-		printf("Low Balance.\n");
 		return LOW_BALANCE;
 	}
 	return SERVER_OK;

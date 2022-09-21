@@ -1,9 +1,9 @@
 #ifndef CARD_H
 #define CARD_H
 
-#define MAX_CARD_HOLDER_NAME 25
+#define MAX_CARD_HOLDER_NAME 26
 #define MAX_DATE_SIZE 6
-#define MAX_PAN_SIZE 20
+#define MAX_PAN_SIZE 21
 
 #include <stdio.h>
 #include <string.h>

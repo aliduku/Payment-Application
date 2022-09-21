@@ -13,7 +13,7 @@ EN_terminalError_t getTransactionDate(ST_terminalData_t* termData)
     uint8_t systemDate[MAX_SYSTEM_DATE_SIZE] = { '\0' };
     sprintf_s(systemDate, MAX_SYSTEM_DATE_SIZE, "%d/%02d/%02d", newtime.tm_mday, newtime.tm_mon + 1, newtime.tm_year + 1900);
     strcpy_s(termData->transactionDate, MAX_SYSTEM_DATE_SIZE, systemDate);
-    printf("Current Date: %s\n", termData->transactionDate);
+    printf("Current System Date: %s\n", termData->transactionDate);
     return TERMINAL_OK;
 }
 
@@ -29,7 +29,6 @@ EN_terminalError_t isCardExpired(ST_cardData_t cardData, ST_terminalData_t termD
     uint32_t transactionYear = ((termData.transactionDate[6] - '0') * 1000) + ((termData.transactionDate[7] - '0') * 100) + ((termData.transactionDate[8] - '0') * 10) + (termData.transactionDate[9] - '0');
     if ((transactionYear > cardExpirationYear) || ((transactionYear == cardExpirationYear) && (transactionMonth > cardExpirationMonth)))
     {
-        printf("Card is Expired!\n");
         return EXPIRED_CARD;
     }
     return TERMINAL_OK;
@@ -55,7 +54,6 @@ EN_terminalError_t getTransactionAmount(ST_terminalData_t* termData)
         return INVALID_AMOUNT;
     }
     termData->transAmount = strtof(enteredTransactionAmountString, NULL);
-    printf("Entered Transaction Amount: %d\n", (uint32_t)termData->transAmount);
     return TERMINAL_OK;
 }
 
@@ -67,7 +65,6 @@ EN_terminalError_t isBelowMaxAmount(ST_terminalData_t termData)
 {
     if (termData.transAmount > termData.maxTransAmount)
     {
-        printf("Max amount exceeded!\n");
         return EXCEED_MAX_AMOUNT;
     }
     return TERMINAL_OK;
@@ -119,6 +116,5 @@ EN_terminalError_t setMaxAmount(ST_terminalData_t* termData)
         return INVALID_MAX_AMOUNT;
     }
     termData->maxTransAmount = strtof(enteredMaxTransactionAmountString, NULL);
-    printf("Entered Max Transaction Amount: %d\n", (uint32_t)termData->maxTransAmount);
     return TERMINAL_OK;
 }
