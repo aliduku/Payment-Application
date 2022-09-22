@@ -30,7 +30,6 @@ typedef struct ST_accountsDB_t
 }ST_accountsDB_t;
 
 uint32_t foundPANIndex;
-uint32_t totalTransactionsCount;
 ST_accountsDB_t accountsDatabase[255];
 ST_transaction_t transactionsDatabase[255];
 

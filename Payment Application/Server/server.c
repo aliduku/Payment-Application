@@ -13,9 +13,7 @@ EN_serverError_t retrieveAccountsDatabase(void)
 		return INTERNAL_SERVER_ERROR;
 
 	uint8_t oneChar;
-	float accountBalance;
 	uint32_t i = 0, linesCount = 0;
-	uint8_t PAN[MAX_PAN_SIZE] = { '\0' };
 
 	while (!feof(accountsDatabaseFile))
 	{
@@ -25,12 +23,8 @@ EN_serverError_t retrieveAccountsDatabase(void)
 	}
 
 	fseek(accountsDatabaseFile, 0L, SEEK_SET);
-	while (fscanf_s(accountsDatabaseFile, "%f %s", &accountBalance, PAN, MAX_PAN_SIZE) && i <= linesCount)
-	{
-		accountsDatabase[i].balance = accountBalance;
-		strcpy_s(accountsDatabase[i].primaryAccountNumber, MAX_PAN_SIZE, PAN);
+	while (fscanf_s(accountsDatabaseFile, "%f %s", &(accountsDatabase[i].balance), accountsDatabase[i].primaryAccountNumber, MAX_PAN_SIZE) && i <= linesCount)
 		i++;
-	}
 
 	fclose(accountsDatabaseFile);
 	return SERVER_OK;
@@ -184,7 +178,7 @@ EN_serverError_t isAmountAvailable(ST_terminalData_t* termData)
 /*
 This function will take all transaction data into the transactions database.
 It gives a sequence number to a transaction, this number is incremented once a transaction is processed into the server.
-If saves any type of transaction, APPROVED or DECLINED, with the specific reason for declining/transaction state.
+It saves any type of transaction, APPROVED or DECLINED, with the specific reason for declining/transaction state.
 If transaction can't be saved will return SAVING_FAILED, else will return OK
 */
 EN_serverError_t saveTransaction(ST_transaction_t* transData)
@@ -195,10 +189,9 @@ EN_serverError_t saveTransaction(ST_transaction_t* transData)
 	if (transactionsCountFileErrorCode)
 		return SAVING_FAILED;
 
-	fscanf_s(transactionsCountFile, "%d", &totalTransactionsCount);
+	fscanf_s(transactionsCountFile, "%d", &(transData->transactionSequenceNumber));
 	fseek(transactionsCountFile, 0L, SEEK_SET);
-	fprintf(transactionsCountFile, "%d", ++totalTransactionsCount);
-	transData->transactionSequenceNumber = totalTransactionsCount;
+	fprintf(transactionsCountFile, "%d", ++(transData->transactionSequenceNumber));
 	fclose(transactionsCountFile);
 
 	transactiosDatabaseFileErrorCode = fopen_s(&transactionsDatabaseFile, "./Server/Transactions_DB.txt", "a");

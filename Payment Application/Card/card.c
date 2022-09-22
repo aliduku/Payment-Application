@@ -22,11 +22,12 @@ EN_cardError_t getCardHolderName(ST_cardData_t* cardData)
 
 	if ((enteredName[0] == '\0') || (enteredName[19] == '\0') || (enteredName[24] != '\0') || (enteredName[i] != '\0'))
 	{
-		printf("Name format incorrect, please try again.\n");
+		printf("Name format incorrect, please try again.\n\n");
 		return WRONG_NAME;
 	}
 
 	strcpy_s(cardData->cardHolderName, MAX_CARD_HOLDER_NAME - 1, enteredName);
+	printf("Entered Name: %s\n\n", cardData->cardHolderName);
 	return CARD_OK;
 }
 
@@ -51,9 +52,11 @@ EN_cardError_t getCardExpiryDate(ST_cardData_t* cardData)
 
 	if ((cardData->cardExpirationDate[0] == '\0') || (cardData->cardExpirationDate[4] == '\0') || (cardData->cardExpirationDate[2] != '/') || (month < 1) || (month > 12) || (year < 1) || (year > 99))
 	{
-		printf("Date format incorrect, please try again.\n");
+		printf("Date format incorrect, please try again.\n\n");
 		return WRONG_EXP_DATE;
 	}
+
+	printf("Entered Card Expiry Date: %s\n\n", cardData->cardExpirationDate);
 	return CARD_OK;
 }
 
@@ -75,10 +78,11 @@ getCardPAN(ST_cardData_t* cardData)
 
 	if ((enteredPAN[0] == '\0') || (enteredPAN[19] != '\0') || (enteredPAN[15] == '\0'))
 	{
-		printf("PAN format incorrect, please try again.\n");
+		printf("PAN format incorrect, please try again.\n\n");
 		return WRONG_PAN;
 	}
 
 	strcpy_s(cardData->primaryAccountNumber, MAX_PAN_SIZE - 1, enteredPAN);
+	printf("Entered PAN: %s\n\n", cardData->primaryAccountNumber);
 	return CARD_OK;
 }

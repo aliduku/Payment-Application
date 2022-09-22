@@ -37,9 +37,7 @@ void appStart(void)
 	while (terminalErrorFlag == INVALID_MAX_AMOUNT)
 		terminalErrorFlag = setMaxAmount(&termData);
 	
-	terminalErrorFlag = getTransactionDate(&termData);
-	while (terminalErrorFlag == WRONG_DATE)
-		terminalErrorFlag = getTransactionDate(&termData);
+	getTransactionDate(&termData);
 
 	transactionData.terminalData = termData;
 

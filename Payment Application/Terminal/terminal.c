@@ -55,11 +55,12 @@ EN_terminalError_t getTransactionAmount(ST_terminalData_t* termData)
 
     if ((enteredTransactionAmountString[0] == '\0') || (enteredTransactionAmountString[i] != '\0') || (strtof(enteredTransactionAmountString, NULL) <= 0))
     {
-        printf("Please enter a valid amount.\n");
+        printf("Please enter a valid amount.\n\n");
         return INVALID_AMOUNT;
     }
 
     termData->transAmount = strtof(enteredTransactionAmountString, NULL);
+    printf("Entered Amount: %d\n\n", (uint32_t)termData->transAmount);
     return TERMINAL_OK;
 }
 
@@ -121,10 +122,11 @@ EN_terminalError_t setMaxAmount(ST_terminalData_t* termData)
 
     if ((enteredMaxTransactionAmountString[i] != '\0') || (strtof(enteredMaxTransactionAmountString, NULL) <= 0))
     {
-        printf("Please enter a valid amount.\n");
+        printf("Please enter a valid amount.\n\n");
         return INVALID_MAX_AMOUNT;
     }
 
     termData->maxTransAmount = strtof(enteredMaxTransactionAmountString, NULL);
+    printf("Max Amount: %d\n\n", (uint32_t)termData->maxTransAmount);
     return TERMINAL_OK;
 }
