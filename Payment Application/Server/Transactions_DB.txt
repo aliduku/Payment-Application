@@ -70,3 +70,39 @@ Transaction Sequence Number: 8
 * Max Transaction Amount: 321
 * Transaction Date: 22/09/2022
 * Transaction State: Declined because Luhn check failed.
+
+Transaction Sequence Number: 9
+* Card Holder Name: jkgfhsdskldjhgsdklfhgsdf
+* Primary Account Number: 5212152152151253
+* Card Expiration Date: 12/22
+* Transaction Amount: 452
+* Max Transaction Amount: 888
+* Transaction Date: 22/09/2022
+* Transaction State: Declined because Luhn check failed.
+
+Transaction Sequence Number: 10
+* Card Holder Name: jdasjkhfadjhlkafdadfaafd
+* Primary Account Number: 512313235215211523
+* Card Expiration Date: 12/33
+* Transaction Amount: 123
+* Max Transaction Amount: 42432
+* Transaction Date: 22/09/2022
+* Transaction State: Declined because this is a stolen/invalid card (PAN is not in our Database).
+
+Transaction Sequence Number: 11
+* Card Holder Name: asdfgdsgagdsgddgggdaaaa
+* Primary Account Number: 513251325135213513
+* Card Expiration Date: 12/33
+* Transaction Amount: 2332
+* Max Transaction Amount: 32333
+* Transaction Date: 22/09/2022
+* Transaction State: Declined because Luhn check failed.
+
+Transaction Sequence Number: 12
+* Card Holder Name: hsfdshdfsdhshsshshsdhsd
+* Primary Account Number: 552435423525252351
+* Card Expiration Date: 11/23
+* Transaction Amount: 321
+* Max Transaction Amount: 432
+* Transaction Date: 22/09/2022
+* Transaction State: Declined because Luhn check failed.

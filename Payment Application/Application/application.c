@@ -43,7 +43,7 @@ void appStart(void)
 
 	transactionData.terminalData = termData;
 
-	/******************************Checks******************************/
+	/*****************************Server Module*****************************/
 
 	terminalErrorFlag = isValidCardPAN(cardData);
 	if (terminalErrorFlag == INVALID_CARD)
@@ -73,6 +73,9 @@ void appStart(void)
 	transactionData.transState = recieveTransactionData(&transactionData);
 }
 
+/*
+This is the main function which runs the application forever.
+*/
 void main()
 {
 	while (1)
