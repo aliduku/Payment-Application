@@ -11,7 +11,6 @@ EN_cardError_t getCardHolderName(ST_cardData_t* cardData)
 	printf("Please insert card holder name here. [20 - 24 alphabet characters]: ");
 	fseek(stdin, 0, SEEK_END);
 	fgets(enteredName, MAX_CARD_HOLDER_NAME, stdin);
-	fseek(stdin, 0, SEEK_END);
 	enteredName[strcspn(enteredName, "\n")] = '\0';
 	uint32_t i = 0;
 	while ((enteredName[i] != '\0') && (isalpha(enteredName[i]) || (isblank(enteredName[i]))))
@@ -35,8 +34,8 @@ EN_cardError_t getCardExpiryDate(ST_cardData_t* cardData)
 	uint32_t month, year;
 	uint8_t enteredExpirationDate[MAX_DATE_SIZE] = { '\0' };
 	printf("Please insert card expiration date here. [MM/YY]: ");
-	fgets(enteredExpirationDate, MAX_DATE_SIZE, stdin);
 	fseek(stdin, 0, SEEK_END);
+	fgets(enteredExpirationDate, MAX_DATE_SIZE, stdin);
 	enteredExpirationDate[strcspn(enteredExpirationDate, "\n")] = '\0';
 	month = ((enteredExpirationDate[0] - '0') * 10) + (enteredExpirationDate[1] - '0');
 	year = ((enteredExpirationDate[3] - '0') * 10) + (enteredExpirationDate[4] - '0');
@@ -58,8 +57,8 @@ getCardPAN(ST_cardData_t* cardData)
 {
 	uint8_t enteredPAN[MAX_PAN_SIZE] = { '\0' };
 	printf("Please insert your PAN here. [16 - 19 characters]: ");
-	fgets(enteredPAN, MAX_PAN_SIZE, stdin);
 	fseek(stdin, 0, SEEK_END);
+	fgets(enteredPAN, MAX_PAN_SIZE, stdin);
 	enteredPAN[strcspn(enteredPAN, "\n")] = '\0';
 	if ((enteredPAN[0] == '\0') || (enteredPAN[19] != '\0') || (enteredPAN[15] == '\0'))
 	{

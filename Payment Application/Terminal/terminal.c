@@ -42,8 +42,8 @@ EN_terminalError_t getTransactionAmount(ST_terminalData_t* termData)
 {
     uint8_t enteredTransactionAmountString[10] = { '\0' };
     printf("Please insert Transaction Amount here: ");
-    fgets(enteredTransactionAmountString, 10, stdin);
     fseek(stdin, 0, SEEK_END);
+    fgets(enteredTransactionAmountString, 10, stdin);
     enteredTransactionAmountString[strcspn(enteredTransactionAmountString, "\n")] = '\0';
     uint32_t i = 0;
     while ((enteredTransactionAmountString[i] != '\0') && (isdigit(enteredTransactionAmountString[i])))
@@ -105,7 +105,6 @@ EN_terminalError_t setMaxAmount(ST_terminalData_t* termData)
     printf("Please insert Max Transaction Amount here: ");
     fseek(stdin, 0, SEEK_END);
     fgets(enteredMaxTransactionAmountString, 10, stdin);
-    fseek(stdin, 0, SEEK_END);
     enteredMaxTransactionAmountString[strcspn(enteredMaxTransactionAmountString, "\n")] = '\0';
     uint32_t i = 0;
     while ((enteredMaxTransactionAmountString[i] != '\0') && (isdigit(enteredMaxTransactionAmountString[i])))

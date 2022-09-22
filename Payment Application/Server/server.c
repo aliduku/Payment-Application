@@ -16,7 +16,7 @@ EN_serverError_t retrieveAccountsDatabase(void)
 	uint8_t oneChar;
 	uint32_t i = 0, linesCount = 0;
 	float accountBalance;
-	uint8_t PAN[MAX_PAN_SIZE] = { '\0' };
+	uint8_t PAN[MAX_PAN_SIZE - 1] = { '\0' };
 	while (!feof(accountsDatabaseFile))
 	{
 		oneChar = fgetc(accountsDatabaseFile);
@@ -26,10 +26,10 @@ EN_serverError_t retrieveAccountsDatabase(void)
 		}
 	}
 	fseek(accountsDatabaseFile, 0L, SEEK_SET);
-	while (fscanf_s(accountsDatabaseFile, "%f %s", &accountBalance, PAN, MAX_PAN_SIZE) && i <= linesCount)
+	while (fscanf_s(accountsDatabaseFile, "%f %s", &accountBalance, PAN, MAX_PAN_SIZE - 1) && i <= linesCount)
 	{
 		accountsDatabase[i].balance = accountBalance;
-		strcpy_s(accountsDatabase[i].primaryAccountNumber, MAX_PAN_SIZE, PAN);
+		strcpy_s(accountsDatabase[i].primaryAccountNumber, MAX_PAN_SIZE - 1, PAN);
 		i++;
 	}
 	fclose(accountsDatabaseFile);
